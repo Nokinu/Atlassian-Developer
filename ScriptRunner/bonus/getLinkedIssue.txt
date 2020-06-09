@@ -1,0 +1,22 @@
+import com.atlassian.jira.component.ComponentAccessor
+import com.atlassian.jira.issue.MutableIssue
+import com.atlassian.jira.issue.IssueManager
+import com.atlassian.jira.issue.CustomFieldManager
+
+MutableIssue issue = ComponentAccessor.getIssueManager().getIssueObject('JIR-4')
+IssueManager issueManager = ComponentAccessor.getIssueManager()
+CustomFieldManager customFieldManager = ComponentAccessor.getCustomFieldManager()
+
+def linkedIssues = ComponentAccessor.issueLinkManager.getInwardLinks(issue.getId())
+if (linkedIssues.size() > 0) {
+	linkedIssues.each{ iss ->
+	    def linkedIssue = issueManager.getIssueObject(iss.destinationId)
+
+	    // Do something with each linked issue.
+	    log.debug(linkedIssue.getSummary())
+
+	}
+	return true
+} else {
+	return "This issue has no inward-linked issues. Please try a different issue or contact a JIRA administrator."
+}

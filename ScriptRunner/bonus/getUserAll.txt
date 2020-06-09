@@ -1,0 +1,7 @@
+import com.atlassian.jira.component.ComponentAccessor
+import com.atlassian.jira.user.util.UserManager
+
+UserManager userManager = ComponentAccessor.getUserManager()
+userManager.getAllApplicationUsers().each{ u ->
+    log.debug u.username
+}

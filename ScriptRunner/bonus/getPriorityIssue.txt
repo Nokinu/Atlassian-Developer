@@ -1,0 +1,6 @@
+import com.atlassian.jira.issue.*;
+import com.atlassian.jira.component.*;
+
+IssueManager im = ComponentAccessor.getIssueManager();
+MutableIssue issue = im.getIssueObject("JIR-3");
+return issue.getPriority().name;

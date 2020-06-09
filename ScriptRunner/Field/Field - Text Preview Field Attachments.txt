@@ -1,0 +1,15 @@
+import com.atlassian.jira.component.ComponentAccessor
+import com.atlassian.jira.issue.attachment.FileSystemAttachmentDirectoryAccessor
+
+    def att = ComponentAccessor.getComponent(FileSystemAttachmentDirectoryAccessor)
+    def output = ""
+
+issue.attachments.each{
+    if(it.mimetype == "text/plain" || it.filename.endsWith("*.*")){
+        def dir = att.getAttachmentDirectory(issue)
+        def file = new File(dir, it.id.toString())
+        def fLine = file.withReader{it.readLine()}
+        output += "$it.filename : <br>$fLine<br><br>"
+    }
+}
+return output

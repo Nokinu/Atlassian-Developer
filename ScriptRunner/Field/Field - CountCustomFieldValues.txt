@@ -1,0 +1,41 @@
+import java.lang.Object
+import java.util.Objects
+import com.atlassian.jira.issue.IssueManager
+import com.atlassian.jira.issue.MutableIssue
+import com.atlassian.jira.component.ComponentAccessor
+import com.atlassian.jira.issue.util.DefaultIssueChangeHolder
+import com.atlassian.jira.issue.ModifiedValue
+
+//IssueManager im = ComponentAccessor.getIssueManager()
+//MutableIssue issue = im.getIssueObject("JIR-4")
+
+int count1 = 0
+int count2 = 0
+if(issue){
+    def customFieldManager = ComponentAccessor.getCustomFieldManager()
+    def cField1 = customFieldManager.getCustomFieldObjectByName("Text Preview Field")
+    String cFieldValue1 = issue.getCustomFieldValue(cField1)
+
+        for(int i = 0; i < cFieldValue1.length(); i++) {
+        if(cFieldValue1.charAt(i) != ' ')
+        count1++;
+        }
+
+
+
+    def cField2 = customFieldManager.getCustomFieldObjectByName("GetSubTaskObjects")
+    String cFieldValue2 = issue.getCustomFieldValue(cField2)
+
+        for(int i = 0; i < cFieldValue2.length(); i++) {
+        if(cFieldValue2.charAt(i) != ' ')
+        count2++;
+        }
+
+    return "Total character of Text Preview Field = "+count1+"<br>Total character of GetSubTaskObjects = "+count2+"<br>Total sum character of Text Preview Field and GetSubTaskObjects are = " + (count1 + count2)
+
+
+
+}else {
+
+    return "Issue on getCustomFieldObjectByName"
+}
